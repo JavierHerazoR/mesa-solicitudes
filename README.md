@@ -1,0 +1,126 @@
+# Mesa
+
+**Seguimiento de solicitudes internas con React y NestJS.**
+
+Mesa reúne solicitudes de soporte, accesos, facturación y operaciones en una bandeja. Permite registrar una solicitud, consultar su detalle, avanzar su estado, revisar su historial y exportar los resultados de una búsqueda. Su propósito es mostrar un flujo full stack completo y fácil de explicar en una entrevista para un cargo junior.
+
+Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios; la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. La publicación en GitHub y una demo alojada están pendientes.
+
+![Bandeja de Mesa en escritorio con indicadores, filtros y solicitudes de demostración](docs/screenshots/desktop.png)
+
+[Ver detalle e historial](docs/screenshots/detail.png) · [Ver interfaz móvil](docs/screenshots/mobile.png)
+
+## Qué se puede probar
+
+- Crear solicitudes con título, descripción, solicitante, categoría y prioridad.
+- Buscar y combinar filtros; navegar por páginas de resultados.
+- Consultar indicadores globales, independientes de los filtros de la bandeja.
+- Cambiar de estado con reglas validadas por la API y conservar un historial.
+- Reabrir solicitudes resueltas para continuar su atención.
+- Descargar en CSV **todos** los resultados que cumplen los filtros, aunque ocupen varias páginas.
+- Reiniciar el servidor y conservar las solicitudes en SQLite.
+
+El flujo de estados es:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pendiente
+    Pendiente --> EnCurso: Iniciar
+    EnCurso --> Resuelta: Resolver
+    Resuelta --> EnCurso: Reabrir
+```
+
+## Ejecutar en local
+
+Requisitos: **Node.js 24 o superior y npm 11 o superior**. Ejecuta los comandos desde esta carpeta (`mesa`). La instalación inicial descarga dependencias; después, la demo funciona localmente sin conectarse a servicios externos.
+
+```bash
+npm ci
+npm run dev
+```
+
+Abre [http://localhost:5173](http://localhost:5173). El comando inicia el frontend con Vite y la API en `http://localhost:4010/api`. Mantén la terminal abierta; usa `Ctrl+C` para detenerlos.
+
+La base de datos se crea automáticamente en `data/mesa.sqlite` con solicitudes de ejemplo. Los siguientes inicios conservan los datos. `DATABASE_PATH` permite elegir otro archivo; por ejemplo, en una terminal de Linux o macOS:
+
+```bash
+DATABASE_PATH=./data/mesa-pruebas.sqlite npm run dev
+```
+
+Para ejecutar la versión compilada:
+
+```bash
+npm run build
+npm start
+```
+
+Abre [http://localhost:4010](http://localhost:4010). La API sirve también los archivos compilados del frontend.
+
+El archivo `.env.example` documenta `HOST`, `PORT` y `DATABASE_PATH`. Los comandos anteriores usan sus valores predeterminados y **no cargan `.env` automáticamente**. Para aplicar un archivo de configuración a la versión compilada:
+
+```bash
+cp .env.example .env
+node --env-file=.env dist/server/main.js
+```
+
+## Verificar el proyecto
+
+```bash
+npm run typecheck
+npm test
+npm run build
+npm run format:check
+```
+
+Las pruebas automatizadas de la API usan `node:test` y Supertest. Cubren validación, filtros, transiciones, historial, CSV y persistencia. Para ejecutar también los cuatro escenarios de navegador con Playwright:
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+En Linux, si faltan bibliotecas del navegador, instalar sus dependencias con `npx playwright install-deps chromium`; este paso puede requerir permisos de administrador. `npm run test:e2e` compila el proyecto y levanta automáticamente una instancia de prueba en el puerto 4011. No necesita que `npm run dev` esté en ejecución.
+
+La suite de navegador recorre la bandeja y exportación, el ciclo completo de una solicitud, la recuperación de errores y la navegación móvil. La [matriz de QA](docs/qa.md) distingue esos escenarios automatizados de las verificaciones manuales pendientes.
+
+Verificado el **29 de septiembre de 2026**, con Node.js **24.18.0** y npm **11.16.0**: compilación correcta, **8/8 pruebas de API** y **4/4 escenarios de Playwright en Chromium** aprobados. Las capturas anteriores proceden de esa ejecución.
+
+El formato del código y la documentación se mantiene con Prettier 3.6.2: `npm run format:check` revisa y `npm run format` aplica el formato.
+
+## Cómo está construido
+
+| Capa         | Tecnología                                  | Responsabilidad                                                    |
+| ------------ | ------------------------------------------- | ------------------------------------------------------------------ |
+| Interfaz     | React 19, TypeScript y Vite 7               | Formularios, bandeja, filtros, detalle y estados de carga/error    |
+| API          | NestJS 11 y TypeScript                      | Validación, reglas de transición y endpoints HTTP                  |
+| Persistencia | SQLite mediante `node:sqlite` de Node.js 24 | Solicitudes e historial en un archivo local                        |
+| Verificación | `node:test`, Supertest y Playwright         | Ejercitar la API mediante HTTP y los flujos de usuario en Chromium |
+
+```mermaid
+flowchart LR
+    Usuario[Usuario] --> React[Interfaz React]
+    React -->|HTTP /api| Nest[API NestJS]
+    Nest --> SQLite[(SQLite)]
+    Nest -->|JSON o CSV| React
+```
+
+La validación vive en la API para que también se aplique cuando la petición no proviene del formulario. NestJS dispone de [ValidationPipe para validar los DTO](https://docs.nestjs.com/techniques/validation). SQLite evita instalar un servidor de base de datos para probar la demo; puedes consultar la [documentación oficial de `node:sqlite`](https://nodejs.org/docs/latest-v24.x/api/sqlite.html). El frontend utiliza el flujo de desarrollo y compilación de la [guía oficial de Vite](https://vite.dev/guide/).
+
+## Alcance y límites
+
+Mesa es una demo local de un único entorno de trabajo. Incluye creación, consulta y cambios de estado; no incluye edición del texto de una solicitud, eliminación, autenticación, roles, asignación a agentes, adjuntos ni notificaciones. El historial registra cambios de estado, sin identificar a una persona autenticada.
+
+La implementación sirve para estudiar integración, reglas de negocio, persistencia y QA. Una versión para varios usuarios necesitaría primero identidad, permisos y una estrategia de concurrencia y operación acordes con ese uso.
+
+## Documentación
+
+- [API y ejemplos de uso](docs/api.md).
+- [Casos de QA manual y registro de resultados](docs/qa.md).
+- [Guion para presentar el proyecto y decisiones técnicas](docs/entrevista.md).
+- [Preparar el repositorio para GitHub](docs/publicacion.md).
+
+## Perfil
+
+Javier Herazo — perfil de desarrollador full stack junior.
+
+[GitHub](https://github.com/JavierHerazoR) · [LinkedIn](https://www.linkedin.com/in/javier-herazo-53a26b186/)
