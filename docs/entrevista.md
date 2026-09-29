@@ -30,7 +30,7 @@ Mostrar los indicadores y descargar un CSV filtrado.
 
 Mostrar una prueba automatizada y un caso de la matriz de QA que hayas ejecutado.
 
-«El objetivo es demostrar el recorrido desde la interfaz hasta la persistencia. Es una demo local sin autenticación. Para un uso multiusuario tendría que incorporar identidad, permisos y revisar la concurrencia. El desarrollo fue asistido por IA; puedo explicar el código que he revisado y las verificaciones que realicé».
+«El objetivo es demostrar el recorrido desde la interfaz hasta la persistencia. Es una demo pública sin autenticación, con datos compartidos y temporales. Para un uso multiusuario tendría que incorporar identidad, permisos y revisar la concurrencia. El desarrollo fue asistido por IA; puedo explicar el código que he revisado y las verificaciones que realicé».
 
 ## Decisiones que conviene poder defender
 
@@ -61,4 +61,4 @@ Para cada respuesta, localizar el archivo y la función correspondiente. Si no p
 
 > Mesa es una demo de portafolio de seguimiento de solicitudes, con React, NestJS, TypeScript y SQLite. Incluye validación, filtros, paginación, historial de estados y exportación CSV. El proyecto fue preparado con asistencia de IA y utiliza datos ficticios. El repositorio documenta cómo ejecutarlo, su API y los casos de QA.
 
-El [repositorio de Mesa](https://github.com/JavierHerazoR/mesa-solicitudes) ya es público. Para acompañar este texto puedes usar las capturas de `docs/screenshots`. Revisa personalmente el proyecto antes de presentarlo y describe qué partes has estudiado o modificado. La demo alojada sigue pendiente.
+El [repositorio de Mesa](https://github.com/JavierHerazoR/mesa-solicitudes) ya es público. Para acompañar este texto puedes usar las capturas de `docs/screenshots`. Revisa personalmente el proyecto antes de presentarlo y describe qué partes has estudiado o modificado. La [demo pública](https://mesa-solicitudes.onrender.com) está disponible para mostrar el flujo durante la entrevista.

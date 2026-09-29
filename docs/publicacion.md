@@ -1,6 +1,6 @@
 # Mesa en GitHub
 
-El repositorio está publicado en **[JavierHerazoR/mesa-solicitudes](https://github.com/JavierHerazoR/mesa-solicitudes)**. Mesa es un proyecto personal preparado con asistencia de IA y datos ficticios. La demo alojada sigue pendiente; el README explica cómo ejecutarlo localmente.
+El repositorio está publicado en **[JavierHerazoR/mesa-solicitudes](https://github.com/JavierHerazoR/mesa-solicitudes)**. Mesa es un proyecto personal preparado con asistencia de IA y datos ficticios. La [demo pública](https://mesa-solicitudes.onrender.com) está activa y verificada; el README también explica cómo ejecutarlo localmente.
 
 ## Publicación verificada
 
@@ -21,8 +21,8 @@ git status --short
 La raíz debe ser la carpeta Mesa y `origin` debe apuntar a `JavierHerazoR/mesa-solicitudes`. Revisar los cambios antes de confirmarlos:
 
 ```bash
-git diff -- README.md docs/publicacion.md docs/entrevista.md
-git add README.md docs/publicacion.md docs/entrevista.md
+git diff -- README.md docs
+git add README.md docs
 git commit -m "docs: actualiza enlaces y estado de publicación"
 git push origin main
 ```
@@ -37,9 +37,9 @@ El repositorio ya está inicializado y tiene remoto: no hace falta repetir `git 
 | Visibilidad    | Público, verificado                                                                                                                                   |
 | Descripción    | Aplicación de seguimiento de solicitudes con React, NestJS, TypeScript y SQLite. Incluye filtros, historial, exportación CSV y pruebas automatizadas. |
 | Topics         | Pendientes de añadir: `react`, `nestjs`, `typescript`, `sqlite`, `vite`, `playwright`, `portfolio`, `fullstack`                                       |
-| Enlace de demo | Pendiente de despliegue; mantener vacío hasta contar con una dirección funcional                                                                      |
+| Enlace de demo | [Demo activa](https://mesa-solicitudes.onrender.com)                                                                                                  |
 
-La descripción ya está configurada en GitHub. Los topics y el campo de demo estaban vacíos durante la revisión. Puedes destacar el repositorio en tu perfil y enlazarlo desde Destacados de LinkedIn.
+La descripción ya está configurada en GitHub. En la revisión inicial, los topics y el campo Website estaban vacíos. La URL de demo de la tabla ya está verificada y lista para añadir a Website. Puedes destacar el repositorio en tu perfil y enlazar la demo desde Destacados de LinkedIn.
 
 ## Texto breve para acompañar el enlace
 

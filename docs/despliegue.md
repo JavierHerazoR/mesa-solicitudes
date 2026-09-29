@@ -2,9 +2,11 @@
 
 La configuración usa **Render Free** para ejecutar React y NestJS en un solo servicio Node.js. SQLite se guarda en un archivo temporal y se inicializa automáticamente con 16 solicitudes ficticias cuando ese archivo no existe.
 
-Estado: configuración preparada para desplegar. La URL pública se confirmará después de crear el servicio y probarlo. El repositorio de código es [JavierHerazoR/mesa-solicitudes](https://github.com/JavierHerazoR/mesa-solicitudes).
+Estado: **demo activa y verificada** el 29 de septiembre de 2026 en [demo pública](https://mesa-solicitudes.onrender.com). Render muestra el commit desplegado `e7f24b3` en el plan Free. El repositorio de código es [JavierHerazoR/mesa-solicitudes](https://github.com/JavierHerazoR/mesa-solicitudes).
 
-## 1. Crear el servicio
+## 1. Crear otra instancia del servicio
+
+Estos pasos permiten reproducir el despliegue en otra cuenta. La instancia de Javier ya está activa en la URL indicada arriba.
 
 1. Inicia sesión o crea una cuenta en [Render](https://dashboard.render.com/).
 2. Abre [Desplegar Mesa](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FJavierHerazoR%2Fmesa-solicitudes).
@@ -51,7 +53,7 @@ Mantén el plan Free y revisa las cuotas y límites de gasto: si añades un mét
 - Comprueba el historial, los filtros y una descarga CSV.
 - Abre la misma dirección desde el teléfono y revisa el formulario y el menú.
 
-Después de comprobarla, añade esa URL real al campo Website del repositorio, al README y a Destacados de LinkedIn. No uses el enlace del formulario de despliegue como si fuera la demo.
+La dirección verificada es https://mesa-solicitudes.onrender.com. El README y los textos preparados para los perfiles ya la incluyen. Usa esta dirección en Website del repositorio y en Destacados de LinkedIn.
 
 ## Actualizar o retirar la demo
 
@@ -70,4 +72,4 @@ Para retirar la demo, elimina su servicio desde Render. El repositorio de GitHub
 
 ## Validación previa al despliegue
 
-El 29 de septiembre de 2026 se compiló una copia aislada con `NODE_ENV=production` y `VITE_PUBLIC_DEMO=true`. Pasaron las 8 pruebas de API y los 4 recorridos de Chromium. Tras retirar las dependencias de desarrollo, se verificaron el arranque en `0.0.0.0`, `/api/health`, la entrega de HTML, JavaScript y CSS, los 16 registros iniciales y el aviso público a 390 px sin desbordamiento. Esta comprobación es local; la URL asignada por Render debe probarse después de crear el servicio.
+El 29 de septiembre de 2026 se compiló una copia aislada con `NODE_ENV=production` y `VITE_PUBLIC_DEMO=true`. Pasaron las 8 pruebas de API y los 4 recorridos de Chromium. Tras retirar las dependencias de desarrollo, se verificaron el arranque en `0.0.0.0`, `/api/health`, la entrega de HTML, JavaScript y CSS, los 16 registros iniciales y el aviso público a 390 px sin desbordamiento. Esta comprobación se realizó localmente antes del despliegue. La verificación posterior de la URL pública está registrada en [QA](qa.md).

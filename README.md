@@ -2,9 +2,11 @@
 
 **Seguimiento de solicitudes internas con React y NestJS.**
 
+[Abrir demo](https://mesa-solicitudes.onrender.com) · [Ver código](https://github.com/JavierHerazoR/mesa-solicitudes)
+
 Mesa reúne solicitudes de soporte, accesos, facturación y operaciones en una bandeja. Permite registrar una solicitud, consultar su detalle, avanzar su estado, revisar su historial y exportar los resultados de una búsqueda. Su propósito es mostrar un flujo full stack completo y fácil de explicar en una entrevista para un cargo junior.
 
-Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios; la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. El código está publicado en [GitHub](https://github.com/JavierHerazoR/mesa-solicitudes). La demo alojada está pendiente; puedes ejecutar la aplicación localmente siguiendo las instrucciones de este README.
+Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios; la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. El código está publicado en [GitHub](https://github.com/JavierHerazoR/mesa-solicitudes). La demo pública está disponible; también puedes ejecutar la aplicación localmente siguiendo las instrucciones de este README.
 
 ![Bandeja de Mesa en escritorio con indicadores, filtros y solicitudes de demostración](docs/screenshots/desktop.png)
 
@@ -65,13 +67,13 @@ node --env-file=.env dist/server/main.js
 
 Vite sí lee `.env` durante el desarrollo y la compilación del frontend. `VITE_PUBLIC_DEMO=true` añade un aviso de datos compartidos y temporales; cambiar esta variable requiere recompilar la interfaz. No modifica la persistencia de SQLite.
 
-## Demo web en Render Free
+## Desplegar tu propia copia en Render Free
 
 El archivo [render.yaml](render.yaml) prepara un único servicio gratuito: NestJS sirve la API y la interfaz React compilada. La base de datos de esta modalidad es temporal. Render puede suspender el servicio por inactividad y los datos locales se pierden al reiniciar o volver a desplegar. Consulta las [condiciones del plan gratuito](https://render.com/docs/free).
 
-[Desplegar Mesa en Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FJavierHerazoR%2Fmesa-solicitudes)
+[Crear una copia de Mesa en Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FJavierHerazoR%2Fmesa-solicitudes)
 
-Abre el enlace anterior desde tu cuenta de Render, revisa que el servicio tenga el plan **Free** y sigue la [guía de despliegue](docs/despliegue.md). Esta configuración no crea recursos hasta completar el proceso en Render. El enlace abre el formulario de despliegue; todavía no es la URL de una demo activa.
+Abre el enlace anterior desde tu cuenta de Render, revisa que el servicio tenga el plan **Free** y sigue la [guía de despliegue](docs/despliegue.md). Esta configuración no crea recursos hasta completar el proceso en Render. Este enlace abre el formulario para crear otra instancia de Mesa en tu cuenta.
 
 ## Verificar el proyecto
 
@@ -118,7 +120,7 @@ La validación vive en la API para que también se aplique cuando la petición n
 
 ## Alcance y límites
 
-Mesa es una demo local de un único entorno de trabajo. Incluye creación, consulta y cambios de estado; no incluye edición del texto de una solicitud, eliminación, autenticación, roles, asignación a agentes, adjuntos ni notificaciones. El historial registra cambios de estado, sin identificar a una persona autenticada.
+Mesa es una aplicación de demostración con un único entorno de trabajo. Incluye creación, consulta y cambios de estado; no incluye edición del texto de una solicitud, eliminación, autenticación, roles, asignación a agentes, adjuntos ni notificaciones. El historial registra cambios de estado, sin identificar a una persona autenticada.
 
 La implementación sirve para estudiar integración, reglas de negocio, persistencia y QA. Una versión para varios usuarios necesitaría primero identidad, permisos y una estrategia de concurrencia y operación acordes con ese uso.
 

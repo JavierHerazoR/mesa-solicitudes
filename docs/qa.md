@@ -43,6 +43,20 @@ El resultado de la auditoría corresponde al lockfile y a los avisos disponibles
 
 Para mantener el formato, `npm run format:check` revisa código y documentación con Prettier 3.6.2; `npm run format` aplica el formato.
 
+## Verificación de la demo pública — 29 de septiembre de 2026
+
+Despliegue: https://mesa-solicitudes.onrender.com, commit `e7f24b3` mostrado como Live en Render Free. Comprobación externa con Chromium, distinta de las suites locales anteriores.
+
+- `/api/health` devolvió HTTP 200 con `{"status":"ok"}`; la raíz entregó la interfaz React.
+- La interfaz mostró solicitudes y el aviso de datos públicos y temporales.
+- Se creó la solicitud ficticia **MES-0017**, «Verificación de la demo pública», con solicitante «QA de demostración». Se inició y resolvió, comprobando las notas y ambas transiciones en el historial.
+- Se buscó esa solicitud y se verificó su código en el CSV descargado.
+- La solicitud permaneció disponible al recargar la página.
+- A 390 px se comprobaron el menú y la vista de reportes, sin desbordamiento horizontal.
+- No se registraron errores de JavaScript durante el recorrido.
+
+La solicitud de prueba quedó resuelta y forma parte de los datos temporales de la demo; puede desaparecer al restablecerse la instancia. Esta revisión no equivale a completar toda la matriz manual de accesibilidad, zoom o múltiples navegadores.
+
 ## Preparación
 
 1. Instalar y ejecutar según el README, con Node.js 24 o superior.
