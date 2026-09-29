@@ -61,4 +61,4 @@ Para cada respuesta, localizar el archivo y la función correspondiente. Si no p
 
 > Mesa es una demo de portafolio de seguimiento de solicitudes, con React, NestJS, TypeScript y SQLite. Incluye validación, filtros, paginación, historial de estados y exportación CSV. El proyecto fue preparado con asistencia de IA y utiliza datos ficticios. El repositorio documenta cómo ejecutarlo, su API y los casos de QA.
 
-Publicar este texto cuando exista un repositorio accesible y se haya revisado personalmente el proyecto. Añadir el enlace real y una captura tomada de la aplicación; no afirmar que existe un despliegue público si todavía no se ha realizado.
+El [repositorio de Mesa](https://github.com/JavierHerazoR/mesa-solicitudes) ya es público. Para acompañar este texto puedes usar las capturas de `docs/screenshots`. Revisa personalmente el proyecto antes de presentarlo y describe qué partes has estudiado o modificado. La demo alojada sigue pendiente.

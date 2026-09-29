@@ -4,7 +4,7 @@
 
 Mesa reúne solicitudes de soporte, accesos, facturación y operaciones en una bandeja. Permite registrar una solicitud, consultar su detalle, avanzar su estado, revisar su historial y exportar los resultados de una búsqueda. Su propósito es mostrar un flujo full stack completo y fácil de explicar en una entrevista para un cargo junior.
 
-Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios; la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. La publicación en GitHub y una demo alojada están pendientes.
+Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios; la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. El código está publicado en [GitHub](https://github.com/JavierHerazoR/mesa-solicitudes). La demo alojada está pendiente; puedes ejecutar la aplicación localmente siguiendo las instrucciones de este README.
 
 ![Bandeja de Mesa en escritorio con indicadores, filtros y solicitudes de demostración](docs/screenshots/desktop.png)
 
@@ -117,7 +117,7 @@ La implementación sirve para estudiar integración, reglas de negocio, persiste
 - [API y ejemplos de uso](docs/api.md).
 - [Casos de QA manual y registro de resultados](docs/qa.md).
 - [Guion para presentar el proyecto y decisiones técnicas](docs/entrevista.md).
-- [Preparar el repositorio para GitHub](docs/publicacion.md).
+- [Repositorio publicado y próximos pasos](docs/publicacion.md).
 
 ## Perfil
 
