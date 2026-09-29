@@ -214,6 +214,15 @@ export function App() {
           </span>
         </header>
         <main id="main" tabIndex={-1}>
+          {import.meta.env.VITE_PUBLIC_DEMO === 'true' && (
+            <aside className="demo-notice" aria-label="Sobre los datos de esta demo">
+              <strong>Demo pública · datos temporales</strong>
+              <p>
+                Este espacio es compartido. Usa datos ficticios: otras personas pueden ver y cambiar
+                las solicitudes, y los datos pueden restablecerse.
+              </p>
+            </aside>
+          )}
           <section className="page-heading">
             <div>
               <p className="eyebrow">TODO EN SU LUGAR</p>

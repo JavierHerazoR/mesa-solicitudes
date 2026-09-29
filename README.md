@@ -56,12 +56,22 @@ npm start
 
 Abre [http://localhost:4010](http://localhost:4010). La API sirve también los archivos compilados del frontend.
 
-El archivo `.env.example` documenta `HOST`, `PORT` y `DATABASE_PATH`. Los comandos anteriores usan sus valores predeterminados y **no cargan `.env` automáticamente**. Para aplicar un archivo de configuración a la versión compilada:
+El archivo `.env.example` documenta `HOST`, `PORT` y `DATABASE_PATH`. La API usa sus valores predeterminados y **no carga `.env` automáticamente**. Para aplicar un archivo de configuración a la versión compilada:
 
 ```bash
 cp .env.example .env
 node --env-file=.env dist/server/main.js
 ```
+
+Vite sí lee `.env` durante el desarrollo y la compilación del frontend. `VITE_PUBLIC_DEMO=true` añade un aviso de datos compartidos y temporales; cambiar esta variable requiere recompilar la interfaz. No modifica la persistencia de SQLite.
+
+## Demo web en Render Free
+
+El archivo [render.yaml](render.yaml) prepara un único servicio gratuito: NestJS sirve la API y la interfaz React compilada. La base de datos de esta modalidad es temporal. Render puede suspender el servicio por inactividad y los datos locales se pierden al reiniciar o volver a desplegar. Consulta las [condiciones del plan gratuito](https://render.com/docs/free).
+
+[Desplegar Mesa en Render](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2FJavierHerazoR%2Fmesa-solicitudes)
+
+Abre el enlace anterior desde tu cuenta de Render, revisa que el servicio tenga el plan **Free** y sigue la [guía de despliegue](docs/despliegue.md). Esta configuración no crea recursos hasta completar el proceso en Render. El enlace abre el formulario de despliegue; todavía no es la URL de una demo activa.
 
 ## Verificar el proyecto
 
@@ -118,6 +128,7 @@ La implementación sirve para estudiar integración, reglas de negocio, persiste
 - [Casos de QA manual y registro de resultados](docs/qa.md).
 - [Guion para presentar el proyecto y decisiones técnicas](docs/entrevista.md).
 - [Repositorio publicado y próximos pasos](docs/publicacion.md).
+- [Despliegue gratuito en Render](docs/despliegue.md).
 
 ## Perfil
 

@@ -354,6 +354,20 @@ main {
   padding: 40px 40px 20px;
   outline: none;
 }
+.demo-notice {
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  border: 1px solid #d5dfcf;
+  border-radius: 8px;
+  background: #eef4e8;
+  color: #405b36;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.demo-notice strong {
+  display: block;
+  margin-bottom: 4px;
+}
 .page-heading {
   display: flex;
   align-items: center;
