@@ -42,6 +42,8 @@ export interface Filters {
   status: '' | Status;
   priority: '' | Priority;
   category: '' | Category;
+  dateFrom: string;
+  dateTo: string;
 }
 export interface NewRequest {
   title: string;

@@ -5,6 +5,7 @@ const { tmpdir } = require('node:os');
 const { join } = require('node:path');
 const request = require('supertest');
 const { createApp } = require('../dist/server/app.js');
+const { DatabaseService } = require('../dist/server/database.service.js');
 const { csvCell } = require('../dist/server/requests.service.js');
 
 let app;
@@ -231,4 +232,54 @@ test('requests and history survive restart without duplicating the demonstration
   const detail = await http.get(`/api/requests/${createdId}`).expect(200);
   assert.equal(detail.body.status, 'in_progress');
   assert.equal(detail.body.history.length, 4);
+});
+
+test('creation date range uses Colombia calendar days in both list and CSV', async () => {
+  const dates = [
+    '2026-09-30T04:59:59.000Z', // September 29 in Colombia
+    '2026-09-30T05:00:00.000Z', // September 30 begins
+    '2026-10-01T04:59:59.000Z', // September 30 ends
+    '2026-10-01T05:00:00.000Z', // October 1 begins
+  ];
+  const database = app.get(DatabaseService).connection;
+  const codes = [];
+  for (const [index, createdAt] of dates.entries()) {
+    const response = await http
+      .post('/api/requests')
+      .send({ ...validRequest, title: `Marcador de fecha ${index + 1}` })
+      .expect(201);
+    database
+      .prepare('UPDATE requests SET createdAt = ? WHERE id = ?')
+      .run(createdAt, response.body.id);
+    codes.push(response.body.code);
+  }
+  const search = 'Marcador de fecha';
+  const range = { search, dateFrom: '2026-09-30', dateTo: '2026-09-30' };
+  const list = await http.get('/api/requests').query(range).expect(200);
+  assert.equal(list.body.total, 2);
+  assert.deepEqual(
+    list.body.items.map((item) => item.code),
+    [codes[2], codes[1]],
+  );
+  const csv = await http.get('/api/requests/export').query(range).expect(200);
+  assert.deepEqual(
+    [...csv.text.matchAll(/"(MES-\d+)"/g)].map((match) => match[1]),
+    [codes[2], codes[1]],
+  );
+  const from = await http
+    .get('/api/requests')
+    .query({ search, dateFrom: '2026-09-30' })
+    .expect(200);
+  assert.equal(from.body.total, 3);
+  const to = await http.get('/api/requests').query({ search, dateTo: '2026-09-30' }).expect(200);
+  assert.equal(to.body.total, 3);
+  for (const query of [
+    { dateFrom: '2026-02-31' },
+    { dateTo: '2026-13-01' },
+    { dateFrom: '2026-09-30T00:00:00Z' },
+    { dateFrom: '2026-10-01', dateTo: '2026-09-30' },
+  ]) {
+    await http.get('/api/requests').query(query).expect(400);
+    await http.get('/api/requests/export').query(query).expect(400);
+  }
 });

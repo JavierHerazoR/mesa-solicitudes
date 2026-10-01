@@ -1,5 +1,16 @@
 import { Transform } from 'class-transformer';
-import { IsIn, IsInt, IsOptional, IsString, Length, Max, MaxLength, Min } from 'class-validator';
+import {
+  IsIn,
+  IsInt,
+  IsISO8601,
+  IsOptional,
+  IsString,
+  Length,
+  Matches,
+  Max,
+  MaxLength,
+  Min,
+} from 'class-validator';
 import {
   CATEGORIES,
   PRIORITIES,
@@ -65,6 +76,16 @@ export class RequestFiltersDto {
   @IsOptional()
   @IsIn(CATEGORIES, { message: 'Selecciona una categoría válida.' })
   category?: RequestCategory;
+
+  @IsOptional()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'La fecha inicial debe tener formato AAAA-MM-DD.' })
+  @IsISO8601({ strict: true }, { message: 'Selecciona una fecha inicial válida.' })
+  dateFrom?: string;
+
+  @IsOptional()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'La fecha final debe tener formato AAAA-MM-DD.' })
+  @IsISO8601({ strict: true }, { message: 'Selecciona una fecha final válida.' })
+  dateTo?: string;
 
   @Transform(integer)
   @IsInt({ message: 'La página debe ser un número entero.' })

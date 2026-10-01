@@ -36,8 +36,19 @@ import {
 } from './types';
 
 type View = 'overview' | 'requests' | 'reports';
-const emptyFilters: Filters = { search: '', status: '', priority: '', category: '' };
-const shortDate = new Intl.DateTimeFormat('es-CO', { day: '2-digit', month: 'short' });
+const emptyFilters: Filters = {
+  search: '',
+  status: '',
+  priority: '',
+  category: '',
+  dateFrom: '',
+  dateTo: '',
+};
+const shortDate = new Intl.DateTimeFormat('es-CO', {
+  day: '2-digit',
+  month: 'short',
+  timeZone: 'America/Bogota',
+});
 
 export function App() {
   const [view, setView] = useState<View>('overview');
@@ -368,6 +379,26 @@ export function App() {
                       </option>
                     ))}
                   </select>
+                </label>
+                <label className="date-filter">
+                  <span>Desde</span>
+                  <input
+                    aria-label="Fecha de creación desde"
+                    type="date"
+                    value={filters.dateFrom}
+                    max={filters.dateTo || undefined}
+                    onChange={(e) => changeFilter('dateFrom', e.target.value)}
+                  />
+                </label>
+                <label className="date-filter">
+                  <span>Hasta</span>
+                  <input
+                    aria-label="Fecha de creación hasta"
+                    type="date"
+                    value={filters.dateTo}
+                    min={filters.dateFrom || undefined}
+                    onChange={(e) => changeFilter('dateTo', e.target.value)}
+                  />
                 </label>
                 {filtered && (
                   <button className="clear-filters" onClick={clear}>

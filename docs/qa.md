@@ -13,16 +13,16 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-`npm test` compila el servidor y ejecuta los casos HTTP de `tests/api.test.cjs` mediante `node:test` y Supertest. Incluyen datos iniciales, paginación, filtros, indicadores, validación, creación, transiciones, historial, exportación CSV, tratamiento de texto SQL y persistencia tras reiniciar.
+`npm test` compila el servidor y ejecuta los casos HTTP de `tests/api.test.cjs` mediante `node:test` y Supertest. Incluyen datos iniciales, paginación, filtros y rango de fechas de creación, indicadores, validación, creación, transiciones, historial, exportación CSV, tratamiento de texto SQL y persistencia tras reiniciar.
 
 `npm run test:e2e` compila el proyecto y ejecuta `tests/e2e/workflow.spec.ts` con Playwright y Chromium. La configuración inicia su propia API en `127.0.0.1:4011`. Si Chromium no inicia por bibliotecas ausentes en Linux, ejecutar `npx playwright install-deps chromium`; puede requerir permisos de administrador.
 
-| Escenario de navegador                     | Comprobaciones incluidas                                                                        |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| Bandeja, paginación, filtros y exportación | Filas visibles, navegación entre páginas, combinación de filtros y contenido del CSV descargado |
-| Crear, iniciar, resolver y reabrir         | Formulario, notas, historial visible, búsqueda posterior y recarga de la página                 |
-| Búsqueda vacía y recuperación de error     | Estado sin coincidencias, respuesta HTTP 500 simulada, reintento y navegación a reportes        |
-| Navegación móvil y foco                    | Vista de 390 px, menú, formulario, cierre con Escape y devolución del foco                      |
+| Escenario de navegador                     | Comprobaciones incluidas                                                                                         |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Bandeja, paginación, filtros y exportación | Filas visibles, navegación entre páginas, combinación de filtros, rango de fechas y contenido del CSV descargado |
+| Crear, iniciar, resolver y reabrir         | Formulario, notas, historial visible, búsqueda posterior y recarga de la página                                  |
+| Búsqueda vacía y recuperación de error     | Estado sin coincidencias, respuesta HTTP 500 simulada, reintento y navegación a reportes                         |
+| Navegación móvil y foco                    | Vista de 390 px, menú, formulario, cierre con Escape y devolución del foco                                       |
 
 Los escenarios generan capturas de la aplicación cuando alcanzan los pasos correspondientes. Una captura producida antes de un fallo no demuestra que haya pasado todo el escenario. Estos casos tampoco sustituyen la evaluación manual de contraste, zoom, todos los recorridos de teclado o múltiples navegadores.
 
@@ -42,6 +42,10 @@ Las pruebas de navegador confirmaron las correcciones de desbordamiento horizont
 El resultado de la auditoría corresponde al lockfile y a los avisos disponibles durante esa instalación. Las pruebas automatizadas anteriores están ejecutadas; **la matriz manual siguiente sigue pendiente de ejecución registrada**, incluyendo zoom al 200 %, contraste, revisión completa por teclado y otros navegadores.
 
 Para mantener el formato, `npm run format:check` revisa código y documentación con Prettier 3.6.2; `npm run format` aplica el formato.
+
+### Ejecución registrada: 1 de octubre de 2026
+
+Con Node.js **24.18.0** y npm **11.16.0**, pasaron **9 de 9 pruebas de API** y **4 de 4 escenarios de Playwright en Chromium**. La prueba adicional comprueba los límites del día en Colombia, la combinación del rango con la búsqueda, su aplicación al CSV y el rechazo de fechas inválidas o invertidas. El escenario de navegador cubre los campos «Desde» y «Hasta» junto con la descarga filtrada. Las capturas actuales se generaron en esta ejecución. La matriz manual sigue pendiente.
 
 ## Verificación de la demo pública — 29 de septiembre de 2026
 
@@ -87,6 +91,8 @@ No depender de un identificador o un conteo fijo de los datos de ejemplo: usar l
 | QA-15 | Crear una solicitud, detener y reiniciar el servidor con el mismo `DATABASE_PATH`.                                                                                | La solicitud y su historial se conservan; no se duplican los datos iniciales.                                           |
 | QA-16 | Solicitar por API un ID inexistente o parámetros de paginación inválidos.                                                                                         | Se responde HTTP 404 para el recurso inexistente y HTTP 400 para parámetros inválidos.                                  |
 | QA-17 | Con la interfaz abierta, detener la API e intentar recargar datos o enviar una solicitud.                                                                         | Se comunica un error sin anunciar un guardado exitoso. Al reiniciar la API puede recuperarse el flujo.                  |
+
+Caso adicional **QA-23 — rango de fechas de creación:** filtrar desde y hasta por el mismo día, descargar el CSV y limpiar los filtros. El listado y el CSV deben contener las mismas solicitudes de ese día en Colombia; al limpiar, reaparece el listado completo.
 
 ## Interfaz y accesibilidad
 
