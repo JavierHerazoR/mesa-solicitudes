@@ -4,9 +4,9 @@
 
 [Abrir demo](https://mesa-solicitudes.onrender.com) · [Ver código](https://github.com/JavierHerazoR/mesa-solicitudes)
 
-Mesa reúne solicitudes de soporte, accesos, facturación y operaciones en una bandeja. Permite registrar una solicitud, consultar su detalle, avanzar su estado, revisar su historial y exportar los resultados de una búsqueda. Su propósito es mostrar un flujo full stack completo y fácil de explicar en una entrevista para un cargo junior.
+Mesa reúne solicitudes de soporte, accesos, facturación y operaciones en una bandeja. Permite registrar una solicitud, consultar su detalle, avanzar su estado, revisar su historial y exportar los resultados de una búsqueda. Su propósito es mostrar un flujo full stack completo y fácil de entender.
 
-Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios; la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. El código está publicado en [GitHub](https://github.com/JavierHerazoR/mesa-solicitudes). La demo pública está disponible; también puedes ejecutar la aplicación localmente siguiendo las instrucciones de este README.
+Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos son ficticios, la aplicación no representa un sistema de un empleador ni un trabajo laboral anterior. El código está publicado en [GitHub](https://github.com/JavierHerazoR/mesa-solicitudes). La demo pública está disponible, también puedes ejecutar la aplicación localmente siguiendo las instrucciones de este README.
 
 ![Bandeja de Mesa en escritorio con indicadores, filtros y solicitudes de demostración](docs/screenshots/desktop.png)
 
