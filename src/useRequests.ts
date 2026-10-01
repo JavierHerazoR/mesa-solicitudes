@@ -24,6 +24,15 @@ export function useRequests(filters: Filters, page: number, revision: number) {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [filters.search, filters.status, filters.priority, filters.category, page, revision]);
+  }, [
+    filters.search,
+    filters.status,
+    filters.priority,
+    filters.category,
+    filters.dateFrom,
+    filters.dateTo,
+    page,
+    revision,
+  ]);
   return { data, stats, loading, error };
 }

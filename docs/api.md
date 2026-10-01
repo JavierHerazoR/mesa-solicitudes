@@ -76,10 +76,21 @@ Todos los parámetros son opcionales. Los filtros se combinan; omitir un filtro 
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `search`                         | Hasta 100 caracteres; busca en código, título, descripción y solicitante. `%` y `_` se tratan como texto literal. |
 | `status`, `priority`, `category` | Deben pertenecer a los catálogos anteriores.                                                                      |
+| `dateFrom`, `dateTo`             | Fechas de creación inclusivas en formato `AAAA-MM-DD`, según el calendario de Colombia (`America/Bogota`).        |
 | `page`                           | Entero entre 1 y 100000; predeterminado: 1.                                                                       |
 | `pageSize`                       | Entero entre 1 y 50; predeterminado: 8, también utilizado por la interfaz.                                        |
 
 El orden es por fecha de creación descendente y, si coincide, por identificador descendente. No se admiten campos de consulta adicionales.
+
+Para consultar las solicitudes creadas durante un día en Colombia:
+
+```bash
+curl --get 'http://localhost:4010/api/requests' \
+  --data-urlencode 'dateFrom=2026-09-30' \
+  --data-urlencode 'dateTo=2026-09-30'
+```
+
+Se pueden enviar solo `dateFrom` o solo `dateTo`. Si ambas están presentes, la fecha inicial no puede ser posterior a la final. Fechas imposibles y formatos distintos devuelven HTTP **400**. La misma regla aplica al CSV.
 
 La respuesta contiene:
 
@@ -145,7 +156,7 @@ curl --get 'http://localhost:4010/api/requests/export' \
   --output mesa-pendientes.csv
 ```
 
-La exportación acepta los mismos filtros `search`, `status`, `priority` y `category` del listado. Incluye **todas** las coincidencias; no se limita a una página. Si se envían `page` y `pageSize`, se validan pero no restringen el archivo. La respuesta utiliza `Content-Type: text/csv; charset=utf-8` y una cabecera de descarga.
+La exportación acepta los mismos filtros `search`, `status`, `priority`, `category`, `dateFrom` y `dateTo` del listado. Incluye **todas** las coincidencias; no se limita a una página. Si se envían `page` y `pageSize`, se validan pero no restringen el archivo. La respuesta utiliza `Content-Type: text/csv; charset=utf-8` y una cabecera de descarga.
 
 El archivo usa UTF-8 con BOM, separador coma y saltos de línea CRLF. Los estados y prioridades se exportan con etiquetas en español. Las comillas se escapan y los textos que podrían interpretarse como fórmulas llevan un apóstrofo inicial.
 

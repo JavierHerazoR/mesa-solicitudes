@@ -1,4 +1,9 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import type { SQLInputValue } from 'node:sqlite';
 import { DatabaseService } from './database.service';
 import { ChangeStatusDto, CreateRequestDto, RequestFiltersDto } from './requests.dto';
@@ -32,6 +37,9 @@ export class RequestsService {
   constructor(private readonly database: DatabaseService) {}
 
   private filters(filters: RequestFiltersDto): { where: string; params: SQLInputValue[] } {
+    if (filters.dateFrom && filters.dateTo && filters.dateFrom > filters.dateTo) {
+      throw new BadRequestException('La fecha inicial no puede ser posterior a la fecha final.');
+    }
     const clauses: string[] = [];
     const params: SQLInputValue[] = [];
     for (const field of ['status', 'priority', 'category'] as const) {
@@ -46,6 +54,18 @@ export class RequestsService {
       );
       const search = `%${escapeLike(filters.search)}%`;
       params.push(search, search, search, search);
+    }
+    // A calendar day in Colombia starts at 05:00 UTC. The upper bound is exclusive.
+    if (filters.dateFrom) {
+      clauses.push('createdAt >= ?');
+      params.push(`${filters.dateFrom}T05:00:00.000Z`);
+    }
+    if (filters.dateTo) {
+      const nextDate = new Date(Date.parse(`${filters.dateTo}T00:00:00.000Z`) + 86_400_000)
+        .toISOString()
+        .slice(0, 10);
+      clauses.push('createdAt < ?');
+      params.push(`${nextDate}T05:00:00.000Z`);
     }
     return { where: clauses.length ? `WHERE ${clauses.join(' AND ')}` : '', params };
   }

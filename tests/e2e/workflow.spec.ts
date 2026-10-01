@@ -21,12 +21,26 @@ test('bandeja, paginación, filtros combinados y reporte completo', async ({ pag
   const pendingTab = page.getByRole('button', { name: /^Pendiente/ });
   await pendingTab.click();
   await expect(page.locator('tbody tr')).toHaveCount(1);
+  const result = await request.get('/api/requests?category=Accesos&priority=high&status=pending');
+  const data = await result.json();
+  const dateParts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      timeZone: 'America/Bogota',
+    })
+      .formatToParts(new Date(data.items[0].createdAt))
+      .map(({ type, value }) => [type, value]),
+  );
+  const date = `${dateParts.year}-${dateParts.month}-${dateParts.day}`;
+  await page.getByLabel('Fecha de creación desde').fill(date);
+  await page.getByLabel('Fecha de creación hasta').fill(date);
+  await expect(page.locator('tbody tr')).toHaveCount(1);
   const downloadEvent = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Exportar CSV' }).click();
   const download = await downloadEvent;
   const csv = await readFile((await download.path())!, 'utf8');
-  const result = await request.get('/api/requests?category=Accesos&priority=high&status=pending');
-  const data = await result.json();
   expect(csv).toContain(data.items[0].code);
   expect(csv.split('\r\n').filter(Boolean).length).toBe(data.total + 1);
   expect(errors).toEqual([]);

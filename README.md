@@ -15,7 +15,7 @@ Es un proyecto personal de portafolio preparado con asistencia de IA. Los datos 
 ## Qué se puede probar
 
 - Crear solicitudes con título, descripción, solicitante, categoría y prioridad.
-- Buscar y combinar filtros; navegar por páginas de resultados.
+- Buscar y combinar filtros, incluido un rango de fechas de creación; navegar por páginas de resultados.
 - Consultar indicadores globales, independientes de los filtros de la bandeja.
 - Cambiar de estado con reglas validadas por la API y conservar un historial.
 - Reabrir solicitudes resueltas para continuar su atención.
@@ -95,7 +95,7 @@ En Linux, si faltan bibliotecas del navegador, instalar sus dependencias con `np
 
 La suite de navegador recorre la bandeja y exportación, el ciclo completo de una solicitud, la recuperación de errores y la navegación móvil. La [matriz de QA](docs/qa.md) distingue esos escenarios automatizados de las verificaciones manuales pendientes.
 
-Verificado el **29 de septiembre de 2026**, con Node.js **24.18.0** y npm **11.16.0**: compilación correcta, **8/8 pruebas de API** y **4/4 escenarios de Playwright en Chromium** aprobados. Las capturas anteriores proceden de esa ejecución.
+Verificado el **1 de octubre de 2026**, con Node.js **24.18.0** y npm **11.16.0**: compilación correcta, **9/9 pruebas de API** y **4/4 escenarios de Playwright en Chromium** aprobados. Las capturas anteriores proceden de esa ejecución.
 
 El formato del código y la documentación se mantiene con Prettier 3.6.2: `npm run format:check` revisa y `npm run format` aplica el formato.
 
